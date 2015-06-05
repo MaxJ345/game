@@ -1,0 +1,41 @@
+recursively generating rooms
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
+srand(time(NULL));
+
+roomGen(branchRoomPtr, randomNum)
+{
+	if (only first room exists)	// base case; make sure to use randomness/percentage here
+		roomGen(northRoomPtr);
+		roomGen(southRoomPtr);
+		roomGen(eastRoomPtr);
+		roomGen(westRoomPtr);
+	else						// this will lead to infinite recursion, so we should use a percentage/random-number that gets smaller as it goes through multiple levels of recursion
+		// create and allocate memory for rooms that need to be created
+		// check the direction the branch is from...
+		// make sure not to generate in that direction
+		
+		// with random chance:
+		roomGen all except the one in direction of the branch
+}
+
+
+as we get deeper in the recursion --> randomSeed++
+initial randomSeed = 1
+
+loop(all roomPtr's)
+	if(rand() % randomSeed == 0)
+		roomGen(...);
+
+
+// room layout:
+roomContents
+pointers to other rooms; one pair of pointers (coming in / going out) for each direction (north, south, east, west)
+
+
+
+
+// check for collisions/overlapping rooms
