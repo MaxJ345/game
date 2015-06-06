@@ -12,7 +12,7 @@ NOTE: The current version of the code does not take into account that rooms are 
 using namespace std;
 
 struct room {
-	int number;
+	int number;				// content
 	struct room * north;
 	struct room * south;
 	struct room * east;
@@ -92,6 +92,8 @@ int main(void)
 	room * starting_room_ptr = roomGen(NULL, 1, 'E');
 }
 
-// a function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root)
+// A function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root); this will all be needed for deallocation.
 
 // this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
+
+// Need a better way of simulating "probability" of room generation. The seed and random/mod seems to have undesirable results.
