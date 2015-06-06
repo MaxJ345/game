@@ -11,7 +11,14 @@ NOTE: The current version of the code does not take into account that rooms are 
 #include <ctime>
 using namespace std;
 
-room * roomGen(* room_ptr, int selection_seed, char coord)
+struct room {
+	struct room * north;
+	struct room * south;
+	struct room * east;
+	struct room * west;
+} ;
+
+room * roomGen(room * room_ptr, int selection_seed, char coord)
 {
 	char coordinate[4] = {'N', 'S', 'E', 'W'};
 	char coordinate_opposite[4] = {'S', 'N', 'W', 'E'};
@@ -19,7 +26,7 @@ room * roomGen(* room_ptr, int selection_seed, char coord)
 	
 	if(room_ptr == NULL)			// base case
 	{
-		initial_ptr = new room;
+		room * initial_ptr = new room;
 
 		// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 		for(int i=0; i<4; i++)
@@ -31,7 +38,7 @@ room * roomGen(* room_ptr, int selection_seed, char coord)
 	
 	else							// recursion; note that recursion is stopped by the fact that the probability of creating a new room gets smaller as recursion gets deeper
 	{
-		temp_room_ptr = new room;
+		room * temp_room_ptr = new room;
 		
 		// set correct direction for pointer from original room to new room, and vice-versa
 		switch (coord)
@@ -77,3 +84,5 @@ room * roomGen(* room_ptr, int selection_seed, char coord)
 }
 
 // a function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root)
+
+// this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
