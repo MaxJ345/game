@@ -12,6 +12,7 @@ NOTE: The current version of the code does not take into account that rooms are 
 using namespace std;
 
 struct room {
+	int number;
 	struct room * north;
 	struct room * south;
 	struct room * east;
@@ -23,21 +24,24 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 	char coordinate[4] = {'N', 'S', 'E', 'W'};
 	char coordinate_opposite[4] = {'S', 'N', 'W', 'E'};
 	srand(time(NULL));
+	room * initial_ptr;
 	
 	if(room_ptr == NULL)			// base case
 	{
-		room * initial_ptr = new room;
+		cout << "Creating initial room." << endl;
+		initial_ptr = new room;
 
 		// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 		for(int i=0; i<4; i++)
 		{
 			if(rand() % selection_seed == 0)
-				roomGen(initial_ptr, selection_seed++, coordinate[i]);
+				roomGen(initial_ptr, selection_seed+=6, coordinate[i]);
 		}
 	}
 	
 	else							// recursion; note that recursion is stopped by the fact that the probability of creating a new room gets smaller as recursion gets deeper
 	{
+		cout << "Creating room." << endl;
 		room * temp_room_ptr = new room;
 		
 		// set correct direction for pointer from original room to new room, and vice-versa
@@ -80,7 +84,12 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 		}
 	}
 	
-	return initial_ptr				// this will give the user access to the first room, and therefore the entire complex
+	return initial_ptr;				// this will give the user access to the first room, and therefore the entire complex
+}
+
+int main(void)
+{
+	room * starting_room_ptr = roomGen(NULL, 1, 'E');
 }
 
 // a function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root)
