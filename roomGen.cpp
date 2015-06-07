@@ -3,6 +3,7 @@ This function is called upon to recursively generate rooms. It will generate roo
 The inputs are the pointer for the current room (should be NULL initially), a seed for random generation , and a coordinate for reference (not used for the initial value).
 The value returned by this function will be a pointer to the first room created. This should give the user access to the entire complex.
 NOTE: The current version of the code does not take into account that rooms are generated without regard for each other's locations; if a 2-D grid/map was drawn of the complex, there might (and probably will) be rooms that are overlapping (take up the same spot). This doesn't break the code (these rooms will always have unique spaces allocated in memory), but it makes it confusing for the user. A way around this would be to implement a grid system that checks the location of a room before it is allocated/created.
+NOTE: A value of 0 for the initial seed will cause errors.
 */
 
 #include <iostream>
@@ -35,7 +36,7 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 		for(int i=0; i<4; i++)
 		{
 			if(rand() % selection_seed == 0)
-				roomGen(initial_ptr, selection_seed+=6, coordinate[i]);
+				roomGen(initial_ptr, ++selection_seed, coordinate[i]);			// selection_seed needs to be pre-incremented, otherwise the incremented value never makes it into the "deeper levels" of recursion
 		}
 	}
 	
@@ -80,7 +81,7 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 		{
 			if(rand() % selection_seed == 0)
 				if(coord != coordinate_opposite[j])			// this prevents backtracking when creating more rooms
-					roomGen(temp_room_ptr, selection_seed++, coordinate[j]);
+					roomGen(temp_room_ptr, ++selection_seed, coordinate[j]);
 		}
 	}
 	
