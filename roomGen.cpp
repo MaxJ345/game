@@ -20,11 +20,25 @@ struct room {
 	struct room * west;
 } ;
 
+room * roomGen(room *, int, char);
+
+int main(void)
+{
+	srand(time(NULL));
+	room * starting_room_ptr = roomGen(NULL, 1, 'E');
+	cout << starting_room_ptr->number << "\n" << starting_room_ptr->north->number << "\n" << starting_room_ptr->south->number << "\n" << starting_room_ptr->east->number << "\n" << starting_room_ptr->west->number;
+}
+
+// A function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root); this will all be needed for deallocation.
+
+// this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
+
+// Need a better way of simulating "probability" of room generation. The seed and random/mod seems to have undesirable results (somewhat fixed).
+
 room * roomGen(room * room_ptr, int selection_seed, char coord)
 {
 	char coordinate[4] = {'N', 'S', 'E', 'W'};
 	char coordinate_opposite[4] = {'S', 'N', 'W', 'E'};
-	srand(time(NULL));
 	room * initial_ptr;
 	int temp_seed;
 
@@ -92,17 +106,3 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 
 	return initial_ptr;				// this will give the user access to the first room, and therefore the entire complex
 }
-
-int main(void)
-{
-	room * starting_room_ptr = roomGen(NULL, 1, 'E');
-	cout << starting_room_ptr->number << "\n" << starting_room_ptr->north->number << "\n" << starting_room_ptr->south->number << "\n" << starting_room_ptr->east->number << "\n" << starting_room_ptr->west->number;
-}
-
-// A function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root); this will all be needed for deallocation.
-
-// this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
-
-// Need a better way of simulating "probability" of room generation. The seed and random/mod seems to have undesirable results.
-
-// Keep getting the same values for "number"; need to fix that. Draw a picture! Make sure it's not the structure/pointers that are bugged
