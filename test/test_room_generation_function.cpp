@@ -1,3 +1,5 @@
+// The whole point of this test is to make sure that different values are assigned to the rooms that are created with the functions.
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -5,7 +7,7 @@
 using namespace std;
 
 struct room {
-	int number;				// content
+	int number;
 	struct room * north;
 	struct room * south;
 	struct room * east;
@@ -24,7 +26,7 @@ room * roomGen(int input)
 
 int main(void)
 {
-    srand(time(NULL));
+    srand(time(NULL));					// if this statement is in the function (roomGen) then rand() outputs the same (I don't know why) pseudo-random value
 
     room * room_ptr = roomGen(4);
     cout << room_ptr->number << endl;

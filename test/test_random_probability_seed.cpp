@@ -1,3 +1,5 @@
+// this test is for the logic of rand() and the seed value used to create a "probability"
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
