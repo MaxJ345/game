@@ -4,6 +4,8 @@
 #include <ctime>
 using namespace std;
 
+#define NUM_DOORS 4
+
 struct room {
 	int number;				// simulating content
 	struct room * north;
@@ -37,8 +39,8 @@ NOTE: A value of 0 for the initial seed will cause errors.
 
 room * roomGen(room * room_ptr, int selection_seed, char coord)
 {
-	char coordinate[4] = {'N', 'S', 'E', 'W'};
-	char coordinate_opposite[4] = {'S', 'N', 'W', 'E'};
+	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
+	char coordinate_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 	room * initial_ptr;
 	int temp_seed;
 
@@ -47,7 +49,7 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 		initial_ptr = new room;
 		
 		// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
-		for(int i=0; i<4; i++)
+		for(int i = 0; i < NUM_DOORS; i++)
 		{
 		    temp_seed = selection_seed;
 			if(rand() % selection_seed == 0)
@@ -91,7 +93,7 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 		}
 
 		// generate next rooms EXCEPT for the room that would be in the direction we just came from
-		for(int j=0; j<4; j++)
+		for(int j = 0; j < NUM_DOORS; j++)
 		{
 		    temp_seed = selection_seed;
 			if(rand() % selection_seed == 0)
