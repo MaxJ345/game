@@ -1,11 +1,3 @@
-/*
-This function is called upon to recursively generate rooms. It will generate rooms to the North, South, East, and West of the current room.
-The inputs are the pointer for the current room (should be NULL initially), a seed for random generation , and a coordinate for reference (not used for the initial value).
-The value returned by this function will be a pointer to the first room created. This should give the user access to the entire complex.
-NOTE: The current version of the code does not take into account that rooms are generated without regard for each other's locations; if a 2-D grid/map was drawn of the complex, there might (and probably will) be rooms that are overlapping (take up the same spot). This doesn't break the code (these rooms will always have unique spaces allocated in memory), but it makes it confusing for the user. A way around this would be to implement a grid system that checks the location of a room before it is allocated/created.
-NOTE: A value of 0 for the initial seed will cause errors.
-*/
-
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -13,7 +5,7 @@ NOTE: A value of 0 for the initial seed will cause errors.
 using namespace std;
 
 struct room {
-	int number;				// content
+	int number;				// simulating content
 	struct room * north;
 	struct room * south;
 	struct room * east;
@@ -26,7 +18,6 @@ int main(void)
 {
 	srand(time(NULL));
 	room * starting_room_ptr = roomGen(NULL, 1, 'E');
-	cout << starting_room_ptr->number << "\n" << starting_room_ptr->north->number << "\n" << starting_room_ptr->south->number << "\n" << starting_room_ptr->east->number << "\n" << starting_room_ptr->west->number;
 }
 
 // A function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root); this will all be needed for deallocation.
@@ -34,6 +25,15 @@ int main(void)
 // this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
 
 // Need a better way of simulating "probability" of room generation. The seed and random/mod seems to have undesirable results (somewhat fixed).
+
+/*
+roomGen:
+This function is called upon to recursively generate rooms. It will generate rooms to the North, South, East, and West of the current room.
+The inputs are the pointer for the current room (should be NULL initially), a seed for random generation , and a coordinate for reference (not used for the initial value).
+The value returned by this function will be a pointer to the first room created. This should give the user access to the entire complex.
+NOTE: The current version of the code does not take into account that rooms are generated without regard for each other's locations; if a 2-D grid/map was drawn of the complex, there might (and probably will) be rooms that are overlapping (take up the same spot). This doesn't break the code (these rooms will always have unique spaces allocated in memory), but it makes it confusing for the user. A way around this would be to implement a grid system that checks the location of a room before it is allocated/created.
+NOTE: A value of 0 for the initial seed will cause errors.
+*/
 
 room * roomGen(room * room_ptr, int selection_seed, char coord)
 {
@@ -44,10 +44,8 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 
 	if(room_ptr == NULL)			// base case
 	{
-		cout << "Creating initial room." << endl;
 		initial_ptr = new room;
-		initial_ptr->number = rand();
-
+		
 		// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 		for(int i=0; i<4; i++)
 		{
@@ -59,10 +57,8 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 
 	else							// recursion; note that recursion is stopped by the fact that the probability of creating a new room gets smaller as recursion gets deeper
 	{
-		cout << "Creating room." << endl;
 		room * temp_room_ptr = new room;
-		temp_room_ptr->number = rand();
-
+		
 		// set correct direction for pointer from original room to new room, and vice-versa
 		switch (coord)
 		{
