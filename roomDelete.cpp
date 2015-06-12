@@ -75,7 +75,7 @@ int roomDelete(room * room_ptr, char coord)
 			return 2;		// outward rooms have not been deleted yet
 	}		
 	
-	else
+	else		// recursion
 	{
 		// this sets the value for the door that won't be handed to the delete function
 		for(int j = 0; j < NUM_DOORS; j++)
@@ -134,7 +134,7 @@ int roomDelete(room * room_ptr, char coord)
 				room_ptr->south->north = NULL;
 				room_ptr->south = NULL;
 			}
-			case 'N':
+			case 'S':
 			{
 				room_ptr->north->south = NULL;
 				room_ptr->north = NULL;
