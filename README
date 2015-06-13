@@ -1,0 +1,30 @@
+==INTRODUCTION==
+
+README for 'game'
+
+This project is an extension on the C++ text-based game that my group (Colin Ryan, Andrew Eatman, Thatcher Buckley, Graham Entwistle) and I wrote for a school project. With this, I hope to improve upon and update the original game.
+
+
+==FILES==
+
+Currently the directory contains the following files and folders:
+
+--FILES--
+roomGen.cpp - this file contains the function that procedurally/recursively generates a complex of interlinked rooms
+roomDelete.cpp - this file recursively deletes a complex of interlinked rooms
+
+--DIRECTORIES--
+test - this directory contains test files for algorithms, etc.
+original - this directory contains the files for the original game
+
+
+==STATUS==
+
+The roomGen and roomDelete functions are currently working! They need to be updated (cleaned up, broken up into more functions, add grid-system for roomGen, etc.), but the basic logic of each algorithm is working.
+
+
+==FUTURE==
+
+Now I will focus on revamping, and redesigning old code (from original game) and high-level design of the game.
+
+I hope to add a grid system and map system to complement roomGen.
