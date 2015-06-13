@@ -48,6 +48,12 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 	{
 		initial_ptr = new room;
 		
+		//set all ptr's to NULL for initialization
+		initial_ptr->north = NULL;
+		initial_ptr->south = NULL;
+		initial_ptr->east = NULL;
+		initial_ptr->west = NULL;
+		
 		// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 		for(int i = 0; i < NUM_DOORS; i++)
 		{
@@ -60,6 +66,12 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 	else							// recursion; note that recursion is stopped by the fact that the probability of creating a new room gets smaller as recursion gets deeper
 	{
 		room * temp_room_ptr = new room;
+
+		//set all ptr's to NULL for initialization
+		temp_room_ptr->north = NULL;
+		temp_room_ptr->south = NULL;
+		temp_room_ptr->east = NULL;
+		temp_room_ptr->west = NULL;
 		
 		// set correct direction for pointer from original room to new room, and vice-versa
 		switch (coord)

@@ -7,14 +7,13 @@ using namespace std;
 #define NUM_DOORS 4
 
 struct room {
-	int number;				// simulating content
 	struct room * north;
 	struct room * south;
 	struct room * east;
 	struct room * west;
 } ;
 
-roomDelete(room *, char);
+int roomDelete(room *, char);
 
 int main(void)
 {
@@ -34,6 +33,7 @@ int roomDelete(room * room_ptr, char coord)
 	char coordinate_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 	char coord_opp = '\0';
 	
+	// call function on any remaining rooms
 	if(coord == '\0')	// this is the beginning/initial room
 	{
 		for(int i = 0; i < NUM_DOORS; i++)
@@ -69,6 +69,7 @@ int roomDelete(room * room_ptr, char coord)
 			}
 		}
 		
+		// delete current room
 		if(room_ptr->north == NULL && room_ptr->south == NULL && room_ptr->east == NULL && room_ptr->west == NULL)
 			delete room_ptr;
 		else
@@ -86,10 +87,11 @@ int roomDelete(room * room_ptr, char coord)
 		
 		if(coord_opp == '\0')
 		{
-			cout << "An error occurred while setting the value of the opposite coordinate.\n"
+			cout << "An error occurred while setting the value of the opposite coordinate.\n";
 			return 1;
 		}
 		
+		// call function on any remaining rooms
 		for(int k = 0; k < NUM_DOORS; k++)
 		{
 			if(coordinate[k] != coord_opp)		// this is to avoid backtracking (which would probably cause infinite recursion)
@@ -99,25 +101,25 @@ int roomDelete(room * room_ptr, char coord)
 					case 'N':
 					{
 						if(room_ptr->north != NULL)
-							roomDelete(room_ptr->north, 'N')
+							roomDelete(room_ptr->north, 'N');
 						break;
 					}
 					case 'S':
 					{
 						if(room_ptr->south != NULL)
-							roomDelete(room_ptr->south, 'S')
+							roomDelete(room_ptr->south, 'S');
 						break;
 					}
 					case 'E':
 					{
 						if(room_ptr->east != NULL)
-							roomDelete(room_ptr->east, 'E')
+							roomDelete(room_ptr->east, 'E');
 						break;
 					}
 					case 'W':
 					{
 						if(room_ptr->west != NULL)
-							roomDelete(room_ptr->west, 'W')
+							roomDelete(room_ptr->west, 'W');
 						break;
 					}
 					default:
@@ -133,26 +135,31 @@ int roomDelete(room * room_ptr, char coord)
 			{
 				room_ptr->south->north = NULL;
 				room_ptr->south = NULL;
+				break;
 			}
 			case 'S':
 			{
 				room_ptr->north->south = NULL;
 				room_ptr->north = NULL;
+				break;
 			}
 			case 'E':
 			{
 				room_ptr->west->east = NULL;
 				room_ptr->west = NULL;
+				break;
 			}
 			case 'W':
 			{
 				room_ptr->east->west = NULL;
 				room_ptr->east = NULL;
+				break;
 			}
 			default:
 				cout << "There was a problem with severing the connection for the room at location: " << room_ptr << endl;
 		}
 		
+		// delete current room
 		if(room_ptr->north == NULL && room_ptr->south == NULL && room_ptr->east == NULL && room_ptr->west == NULL)
 			delete room_ptr;
 		else
