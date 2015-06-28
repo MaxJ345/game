@@ -53,7 +53,6 @@ room * roomGen(room * room_ptr, int selection_seed, char direction)
 // function for generating the initial room
 room * gen_init_room(int selection_seed)
 {
-	int temp_seed;
 	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 
 	room * initial_ptr = new room;
@@ -68,9 +67,8 @@ room * gen_init_room(int selection_seed)
 	// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 	for(int i = 0; i < NUM_DOORS; i++)
 	{
-		temp_seed = selection_seed;
 		if(rand() % selection_seed == 0)
-			roomGen(initial_ptr, ++temp_seed, compass[i]);			// selection_seed needs to be pre-incremented, otherwise the incremented value never makes it into the "deeper levels" of recursion
+			roomGen(initial_ptr, selection_seed + 1, compass[i]);
 	}
 
 	return initial_ptr;
@@ -79,7 +77,6 @@ room * gen_init_room(int selection_seed)
 // function that generates a room
 void gen_room(room * room_ptr, int selection_seed, char direction)
 {
-	int temp_seed;
 	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 	char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 
@@ -98,10 +95,9 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	// generate next rooms EXCEPT for the room that would be in the direction we just came from
 	for(int j = 0; j < NUM_DOORS; j++)
 	{
-		temp_seed = selection_seed;
 		if(rand() % selection_seed == 0)
 			if(direction != compass_opposite[j])			// this prevents backtracking when creating more rooms
-				roomGen(temp_room_ptr, ++temp_seed, compass[j]);
+				roomGen(temp_room_ptr, selection_seed + 1, compass[j]);
 	}
 }
 
