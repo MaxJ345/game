@@ -13,36 +13,6 @@ struct room {
 	struct room * west;
 } ;
 
-int roomDelete(room *, char);
-
-int main(void)
-{
-	return 0;
-}
-
-/*
-roomDelete:
-This function deletes a complex of interlinked 'rooms'.
-The function takes an initial pointer (to a room) and coordinate (should be NULL for initial value) as input.
-The function returns a value based on the success/failure of the function.
-*/
-
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
-
-#define NUM_DOORS 4
-
-struct room {
-	int number;				// simulating content
-	struct room * north;
-	struct room * south;
-	struct room * east;
-	struct room * west;
-} ;
-
 room * roomGen(room *, int, char);
 room * gen_init_room(int);
 void gen_room(room *, int, char);
@@ -54,8 +24,6 @@ int main(void)
 	room * starting_room_ptr = roomGen(NULL, 1, 'E');
 }
 
-// A function will have to be written so that we can figure out what the "outermost" rooms are (leaves), then we start deleting them one at a time with 'delete' (moving up the branch) until we get to the initial room (root); this will all be needed for deallocation.
-
 // this code will also be eventually changed so as to work with classes (get functions, set functions, etc.)
 
 // Need a better way of simulating "probability" of room generation. The seed and random/mod seems to have undesirable results (somewhat fixed).
@@ -63,21 +31,21 @@ int main(void)
 /*
 roomGen:
 This function is called upon to recursively generate rooms. It will generate rooms to the North, South, East, and West of the current room.
-The inputs are the pointer for the current room (should be NULL initially), a seed for random generation , and a coordinate for reference (not used for the initial value).
+The inputs are the pointer for the current room (should be NULL initially), a seed for random generation , and a direction for reference (not used for the initial function call).
 The value returned by this function will be a pointer to the first room created. This should give the user access to the entire complex.
 NOTE: The current version of the code does not take into account that rooms are generated without regard for each other's locations; if a 2-D grid/map was drawn of the complex, there might (and probably will) be rooms that are overlapping (take up the same spot). This doesn't break the code (these rooms will always have unique spaces allocated in memory), but it makes it confusing for the user. A way around this would be to implement a grid system that checks the location of a room before it is allocated/created.
 NOTE: A value of 0 for the initial seed will cause errors.
 */
 
-room * roomGen(room * room_ptr, int selection_seed, char coord)
+room * roomGen(room * room_ptr, int selection_seed, char direction)
 {
 	room * initial_ptr;
 
 	if(room_ptr == NULL)			// base case
-		initial_ptr = gen_init_room(selection_seed);	// generate initial room
+		initial_ptr = gen_init_room(selection_seed);			// generate initial room
 
 	else							// recursion; note that recursion is stopped by the fact that the probability of creating a new room gets smaller as
-		gen_room(room_ptr, selection_seed, coord);			// generate room
+		gen_room(room_ptr, selection_seed, direction);			// generate room
 
 	return initial_ptr;				// this will give the user access to the first room, and therefore the entire complex
 }
@@ -86,7 +54,7 @@ room * roomGen(room * room_ptr, int selection_seed, char coord)
 room * gen_init_room(int selection_seed)
 {
 	int temp_seed;
-	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
+	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 
 	room * initial_ptr = new room;
     cout << "Created room at location: " << initial_ptr << endl;
@@ -102,18 +70,18 @@ room * gen_init_room(int selection_seed)
 	{
 		temp_seed = selection_seed;
 		if(rand() % selection_seed == 0)
-			roomGen(initial_ptr, ++temp_seed, coordinate[i]);			// selection_seed needs to be pre-incremented, otherwise the incremented value never makes it into the "deeper levels" of recursion
+			roomGen(initial_ptr, ++temp_seed, compass[i]);			// selection_seed needs to be pre-incremented, otherwise the incremented value never makes it into the "deeper levels" of recursion
 	}
 
 	return initial_ptr;
 }
 
 // function that generates a room
-void gen_room(room * room_ptr, int selection_seed, char coord)
+void gen_room(room * room_ptr, int selection_seed, char direction)
 {
 	int temp_seed;
-	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
-	char coordinate_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
+	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
+	char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 
 	room * temp_room_ptr = new room;
 	cout << "Created room at location: " << temp_room_ptr << endl;
@@ -125,24 +93,22 @@ void gen_room(room * room_ptr, int selection_seed, char coord)
 	temp_room_ptr->west = NULL;
 
 	// set correct direction for pointer from original room to new room, and vice-versa
-	set_direction(room_ptr, coord, temp_room_ptr);
+	set_direction(room_ptr, direction, temp_room_ptr);
 
 	// generate next rooms EXCEPT for the room that would be in the direction we just came from
 	for(int j = 0; j < NUM_DOORS; j++)
 	{
 		temp_seed = selection_seed;
 		if(rand() % selection_seed == 0)
-			if(coord != coordinate_opposite[j])			// this prevents backtracking when creating more rooms
-				roomGen(temp_room_ptr, ++temp_seed, coordinate[j]);
+			if(direction != compass_opposite[j])			// this prevents backtracking when creating more rooms
+				roomGen(temp_room_ptr, ++temp_seed, compass[j]);
 	}
 }
 
 // function for setting the direction of ptr's between the current room and the previous room
-void set_direction(room * room_ptr, char coord, room * temp_room_ptr)
+void set_direction(room * room_ptr, char direction, room * temp_room_ptr)
 {
-	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
-
-	switch (coord)
+	switch (direction)
 	{
 		case 'N':
 			room_ptr->north = temp_room_ptr;

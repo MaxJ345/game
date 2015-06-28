@@ -15,7 +15,7 @@ struct room {
 
 int roomDelete(room *, char);
 void seek(room *, char);
-void sever_connections(room * room_ptr, char coord);
+void sever_connections(room * room_ptr, char direction);
 
 int main(void)
 {
@@ -25,18 +25,18 @@ int main(void)
 /*
 roomDelete:
 This function deletes a complex of interlinked 'rooms'.
-The function takes an initial pointer (to a room) and coordinate (should be NULL for initial value) as input.
+The function takes an initial pointer (to a room) and direction (should be NULL for initial value) as input.
 The function returns a value based on the success/failure of the function.
 */
 
-int roomDelete(room * room_ptr, char coord)
+int roomDelete(room * room_ptr, char direction)
 {
-	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
-	char coordinate_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
-	char coord_opp = '\0';
+	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
+	char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
+	char direction_opp = '\0';
 	
 	// base case
-	if(coord == '\0')	// this is the beginning/initial room
+	if(direction == '\0')	// this is the beginning/initial room
 	{
 		// call the function on any remaining rooms
 		seek(room_ptr, '\0');
@@ -57,21 +57,21 @@ int roomDelete(room * room_ptr, char coord)
 		// this sets the value for the door that won't be handed to the delete function
 		for(int j = 0; j < NUM_DOORS; j++)
 		{
-			if(coord == coordinate[j])
-				coord_opp = coordinate_opposite[j];
+			if(direction == compass[j])
+				direction_opp = compass_opposite[j];
 		}
 		
-		if(coord_opp == '\0')
+		if(direction_opp == '\0')
 		{
-			cout << "An error occurred while setting the value of the opposite coordinate.\n";
+			cout << "An error occurred while setting the value of the opposite direction.\n";
 			return 1;
 		}
 		
 		// call function on any remaining rooms
-		seek(room_ptr, coord_opp);
+		seek(room_ptr, direction_opp);
 		
 		// delete connection (ptr's) between current room and previous
-		sever_connections(room_ptr, coord);
+		sever_connections(room_ptr, direction);
 		
 		// delete current room
 		if(room_ptr->north == NULL && room_ptr->south == NULL && room_ptr->east == NULL && room_ptr->west == NULL)
@@ -87,15 +87,15 @@ int roomDelete(room * room_ptr, char coord)
 }
 
 // function for seeking which rooms to further delete
-void seek(room * room_ptr, char coord_opp)
+void seek(room * room_ptr, char direction_opp)
 {
-	char coordinate[NUM_DOORS] = {'N', 'S', 'E', 'W'};
+	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 	
 	for(int i = 0; i < NUM_DOORS; i++)
 	{
-		if(coordinate[i] != coord_opp)		// this is to avoid backtracking (which would cause infinite recursion)
+		if(compass[i] != direction_opp)		// this is to avoid backtracking (which would cause infinite recursion)
 		{
-			switch (coordinate[i])
+			switch (compass[i])
 			{
 				case 'N':
 					if(room_ptr->north != NULL)
@@ -121,9 +121,9 @@ void seek(room * room_ptr, char coord_opp)
 }
 
 // function that severs the connections between the current room and the previous room
-void sever_connections(room * room_ptr, char coord)
+void sever_connections(room * room_ptr, char direction)
 {
-	switch(coord)
+	switch(direction)
 	{
 		case 'N':
 			room_ptr->south->north = NULL;
