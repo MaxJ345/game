@@ -17,6 +17,7 @@ room * roomGen(room *, int, char);
 room * gen_init_room(int);
 void gen_room(room *, int, char);
 void set_direction(room *, char, room *);
+bool probability(int);
 
 int main(void)
 {
@@ -56,7 +57,7 @@ room * gen_init_room(int selection_seed)
 	char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 
 	room * initial_ptr = new room;
-    cout << "Created room at location: " << initial_ptr << endl;
+    cout << "Created room at location: " << initial_ptr << endl;	// for DEBUGGING
 
 	//set all ptr's to NULL for initialization
 	initial_ptr->north = NULL;
@@ -67,7 +68,7 @@ room * gen_init_room(int selection_seed)
 	// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 	for(int i = 0; i < NUM_DOORS; i++)
 	{
-		if(rand() % selection_seed == 0)
+		if(probability(selection_seed))
 			roomGen(initial_ptr, selection_seed + 1, compass[i]);
 	}
 
@@ -81,7 +82,7 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 
 	room * temp_room_ptr = new room;
-	cout << "Created room at location: " << temp_room_ptr << endl;
+	cout << "Created room at location: " << temp_room_ptr << endl;	// for DEBUGGING
 
 	//set all ptr's to NULL for initialization
 	temp_room_ptr->north = NULL;
@@ -95,7 +96,7 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	// generate next rooms EXCEPT for the room that would be in the direction we just came from
 	for(int j = 0; j < NUM_DOORS; j++)
 	{
-		if(rand() % selection_seed == 0)
+		if(probability(selection_seed))
 			if(direction != compass_opposite[j])			// this prevents backtracking when creating more rooms
 				roomGen(temp_room_ptr, selection_seed + 1, compass[j]);
 	}
@@ -125,4 +126,15 @@ void set_direction(room * room_ptr, char direction, room * temp_room_ptr)
 		default:
 			cout << "There was an error setting pointers for the room at location: " << temp_room_ptr << endl;
 	}
+}
+
+// function that returns either 'true' or 'false' based on some internal-probabilistic logic
+bool probability(int seed)
+{
+	bool prob_out = false;
+
+	if(rand() % seed == 0)
+		prob_out = true;
+
+	return prob_out;
 }
