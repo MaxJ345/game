@@ -1,6 +1,6 @@
 ==INTRODUCTION==
 README for 'game'.
-This project is an extension on the C++ text-based game that my group (Colin Ryan, Andrew Eatman, Thatcher Buckley, Graham Entwistle) and I wrote for a school project. With this, I hope to improve upon and update the original game.
+This project is an extension on the C++ text-based game that my group (Colin Ryan, Andrew Eatman, Thatcher Buckley, Graham Entwistle) and I (Maxwell Jacob) created for a school project. With this, I hope to improve upon and update the original game.
 
 
 ==FILES==
@@ -23,5 +23,6 @@ The roomGen and roomDelete functions are currently working! They need to be upda
 ==FUTURE==
 Now I will focus on revamping, and redesigning old code (from original game) and high-level design of the game.
 I hope to add a grid system and map system to complement roomGen.
+Make pointer variable to keep global access to probability function (as opposed to passing it a seed all the time).
 All of the game's code should take advantage of object-oriented design (classes, etc.).
 Revamp current code to make sure it has validation/error-checking wherever applicable.
