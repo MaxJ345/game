@@ -59,7 +59,7 @@ room * gen_init_room(int selection_seed)
 	room * initial_ptr = new room;
     cout << "Created room at location: " << initial_ptr << endl;	// for DEBUGGING
 
-	//set all ptr's to NULL for initialization
+	// set all ptr's to NULL for initialization
 	initial_ptr->north = NULL;
 	initial_ptr->south = NULL;
 	initial_ptr->east = NULL;
@@ -84,7 +84,7 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	room * temp_room_ptr = new room;
 	cout << "Created room at location: " << temp_room_ptr << endl;	// for DEBUGGING
 
-	//set all ptr's to NULL for initialization
+	// set all ptr's to NULL for initialization
 	temp_room_ptr->north = NULL;
 	temp_room_ptr->south = NULL;
 	temp_room_ptr->east = NULL;
