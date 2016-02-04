@@ -7,6 +7,8 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <list>
+
 using namespace std;
 
 #define NUM_DOORS 4
@@ -28,10 +30,14 @@ struct room {
 extern char compass[NUM_DOORS];
 extern char compass_opposite[NUM_DOORS];
 
+extern list <coord> * pCoordList;
+
 room * roomGen(room *, int, char);
 room * gen_init_room(int);
 void gen_room(room *, int, char);
+void set_coordinates(char, room *);
 void set_direction(room *, char, room *);
 bool probability(int);
+bool inList(coord);
 
 #endif  // ROOMGEN_HPP_INCLUDED

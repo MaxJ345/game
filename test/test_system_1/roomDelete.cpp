@@ -23,6 +23,7 @@ int roomDelete(room * room_ptr, char direction)
 		if(room_ptr->north == NULL && room_ptr->south == NULL && room_ptr->east == NULL && room_ptr->west == NULL)
 		{
 			//cout << "Deleting room at location: " << room_ptr << endl;        // for DEBUGGING
+			cout << "deleting: " << room_ptr->position.xcoord << ", " << room_ptr->position.ycoord << endl;     // for DEBUGGING
 			delete room_ptr;
 		}
 		else
@@ -55,6 +56,7 @@ int roomDelete(room * room_ptr, char direction)
 		if(room_ptr->north == NULL && room_ptr->south == NULL && room_ptr->east == NULL && room_ptr->west == NULL)
 		{
 			//cout << "Deleting room at location: " << room_ptr << endl;      // for DEBUGGING
+			cout << "deleting: " << room_ptr->position.xcoord << ", " << room_ptr->position.ycoord << endl;     // for DEBUGGING
 			delete room_ptr;
 		}
 		else

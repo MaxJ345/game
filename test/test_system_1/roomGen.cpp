@@ -14,6 +14,8 @@ NOTE: A value of 0 for the initial seed will cause errors.
 char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
 char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
 
+list <coord> * pCoordList = new list <coord>;
+
 room * roomGen(room * room_ptr, int selection_seed, char direction)
 {
 	room * initial_ptr;
@@ -42,7 +44,13 @@ room * gen_init_room(int selection_seed)
 	initial_ptr->position.xcoord = 0;
 	initial_ptr->position.ycoord = 0;
 
-	//cout << initial_ptr->position.xcoord << ", " << initial_ptr->position.ycoord << endl;	// for DEBUGGING
+	coord temp_position;
+	temp_position.xcoord = initial_ptr->position.xcoord;
+	temp_position.ycoord = initial_ptr->position.ycoord;
+
+	pCoordList->push_front(temp_position);
+
+	cout << initial_ptr->position.xcoord << ", " << initial_ptr->position.ycoord << endl;	// for DEBUGGING
 
 	// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 	for(int i = 0; i < NUM_DOORS; i++)
@@ -70,18 +78,36 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	temp_room_ptr->position.xcoord = room_ptr->position.xcoord;
 	temp_room_ptr->position.ycoord = room_ptr->position.ycoord;
 
-	// set correct direction for pointer from original room to new room, and vice-versa
-	set_direction(room_ptr, direction, temp_room_ptr);
+	// Set the coordinates.
+	set_coordinates(direction, temp_room_ptr);
 
-	//cout << temp_room_ptr->position.xcoord << ", " << temp_room_ptr->position.ycoord << endl;  // for DEBUGGING
+	// Checking to see if the current room's position is already occupied. If it is, delete this current room, otherwise continue.
+	coord temp_position;
+	temp_position.xcoord = temp_room_ptr->position.xcoord;
+	temp_position.ycoord = temp_room_ptr->position.ycoord;
+	if(inList(temp_position))
+    {
+        //cout << "room already exists at: " << temp_position.xcoord << ", " << temp_position.ycoord << endl; // for DEBUGGING
+        delete temp_room_ptr;
+    }
+    else
+    {
+        // Add the current room's coordinates to the list, so we can keep track of its position.
+        pCoordList->push_front(temp_position);
 
-	// generate next rooms EXCEPT for the room that would be in the direction we just came from
-	for(int j = 0; j < NUM_DOORS; j++)
-	{
-		if(probability(selection_seed))
-			if(direction != compass_opposite[j])			// this prevents backtracking when creating more rooms
-				roomGen(temp_room_ptr, selection_seed + 1, compass[j]);
-	}
+        // set correct direction for pointer from original room to new room, and vice-versa
+        set_direction(room_ptr, direction, temp_room_ptr);
+
+        cout << temp_room_ptr->position.xcoord << ", " << temp_room_ptr->position.ycoord << endl;  // for DEBUGGING
+
+        // generate next rooms EXCEPT for the room that would be in the direction we just came from
+        for(int j = 0; j < NUM_DOORS; j++)
+        {
+            if(probability(selection_seed))
+                if(direction != compass_opposite[j])			// this prevents backtracking when creating more rooms
+                    roomGen(temp_room_ptr, selection_seed + 1, compass[j]);
+        }
+    }
 }
 
 // function for setting the direction of ptr's between the current room and the previous room
@@ -92,26 +118,44 @@ void set_direction(room * room_ptr, char direction, room * temp_room_ptr)
 		case 'N':
 			room_ptr->north = temp_room_ptr;
 			temp_room_ptr->south = room_ptr;
-			(temp_room_ptr->position.ycoord)++;
 			break;
 		case 'S':
 			room_ptr->south = temp_room_ptr;
 			temp_room_ptr->north = room_ptr;
-			(temp_room_ptr->position.ycoord)--;
 			break;
 		case 'E':
 			room_ptr->east = temp_room_ptr;
 			temp_room_ptr->west = room_ptr;
-			(temp_room_ptr->position.xcoord)++;
 			break;
 		case 'W':
 			room_ptr->west = temp_room_ptr;
 			temp_room_ptr->east = room_ptr;
-			(temp_room_ptr->position.xcoord)--;
 			break;
 		default:
 			cout << "There was an error setting pointers for the room at location: " << temp_room_ptr << endl;
 	}
+}
+
+// function to set the coordinates of the current room
+void set_coordinates(char direction, room * temp_room_ptr)
+{
+    switch (direction)
+    {
+        case 'N':
+            (temp_room_ptr->position.ycoord)++;
+            break;
+        case 'S':
+            (temp_room_ptr->position.ycoord)--;
+            break;
+        case 'E':
+            (temp_room_ptr->position.xcoord)++;
+            break;
+        case 'W':
+            (temp_room_ptr->position.xcoord)--;
+            break;
+        default:
+            cout << "There was an error setting the coordinates for the room at location: " << temp_room_ptr << endl;
+    }
 }
 
 // function that returns either 'true' or 'false' based on some internal-probabilistic logic
@@ -123,4 +167,22 @@ bool probability(int seed)
 		prob_out = true;
 
 	return prob_out;
+}
+
+bool inList(coord pos)
+{
+    bool inList = false;
+    list <coord>::iterator coord_iterator = pCoordList->begin();
+
+    for(; coord_iterator != pCoordList->end(); coord_iterator++)
+    {
+        coord temp = *coord_iterator;
+        if(pos.xcoord == temp.xcoord && pos.ycoord == temp.ycoord)
+        {
+            inList = true;
+            break;
+        }
+    }
+
+    return inList;
 }
