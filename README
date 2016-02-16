@@ -17,6 +17,8 @@ Currently the directory contains the following files and folders:
 
 ==STATUS==
 
+03 Feb. 2016 - A test of the system (as of now) has been created. It contains roomGen, roomDelete, golbally-declared variables, coordinates list, and the logic to prevent "overlapping" (take up the same coordinate position) rooms.
+
 The roomGen and roomDelete functions are currently working! They need to be updated (cleaned up, broken up into more functions, add grid-system for roomGen, etc.), but the basic logic of each algorithm is working.
 
 

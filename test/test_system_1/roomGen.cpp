@@ -50,7 +50,7 @@ room * gen_init_room(int selection_seed)
 
 	pCoordList->push_front(temp_position);
 
-	cout << initial_ptr->position.xcoord << ", " << initial_ptr->position.ycoord << endl;	// for DEBUGGING
+	//cout << initial_ptr->position.xcoord << ", " << initial_ptr->position.ycoord << endl;	// for DEBUGGING
 
 	// this sets which "doors will be opened" (which rooms will be created) using a seed initialized by the user
 	for(int i = 0; i < NUM_DOORS; i++)
@@ -87,7 +87,6 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
 	temp_position.ycoord = temp_room_ptr->position.ycoord;
 	if(inList(temp_position))
     {
-        //cout << "room already exists at: " << temp_position.xcoord << ", " << temp_position.ycoord << endl; // for DEBUGGING
         delete temp_room_ptr;
     }
     else
@@ -98,7 +97,7 @@ void gen_room(room * room_ptr, int selection_seed, char direction)
         // set correct direction for pointer from original room to new room, and vice-versa
         set_direction(room_ptr, direction, temp_room_ptr);
 
-        cout << temp_room_ptr->position.xcoord << ", " << temp_room_ptr->position.ycoord << endl;  // for DEBUGGING
+        //cout << temp_room_ptr->position.xcoord << ", " << temp_room_ptr->position.ycoord << endl;  // for DEBUGGING
 
         // generate next rooms EXCEPT for the room that would be in the direction we just came from
         for(int j = 0; j < NUM_DOORS; j++)
@@ -180,6 +179,7 @@ bool inList(coord pos)
         if(pos.xcoord == temp.xcoord && pos.ycoord == temp.ycoord)
         {
             inList = true;
+            //cout << "room already exists at: " << pos.xcoord << ", " << pos.ycoord << endl; // for DEBUGGING
             break;
         }
     }
