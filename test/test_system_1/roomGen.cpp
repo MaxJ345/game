@@ -11,11 +11,6 @@ NOTE: The current version of the code does not take into account that rooms are 
 NOTE: A value of 0 for the initial seed will cause errors.
 */
 
-char compass[NUM_DOORS] = {'N', 'S', 'E', 'W'};
-char compass_opposite[NUM_DOORS] = {'S', 'N', 'W', 'E'};
-
-list <coord> * pCoordList = new list <coord>;
-
 room * roomGen(room * room_ptr, int selection_seed, char direction)
 {
 	room * initial_ptr;
