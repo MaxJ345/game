@@ -2,18 +2,23 @@
 
 #include "prompt.hpp"
 
-prompt::prompt(room * charPos)
+prompt::prompt(character * playerPtr)
 {
-    if(charPos != NULL)
-        character_position = charPos;
+    if(playerPtr != NULL)
+        player = playerPtr;
     else
         cout << "Initial character position is NULL!";
 }
 
-int prompt::request()
+bool prompt::request()
 {
+    bool retValue = true;
+    room * temp_room_ptr = player->get_location();
+
+    // for DEBUGGING
+    cout << temp_room_ptr->position.xcoord << ", " << temp_room_ptr->position.ycoord << endl;
+
     string strUserInput;
-    int retVal = 0;
 
     getline(cin, strUserInput);
 
@@ -21,25 +26,34 @@ int prompt::request()
     {
         case 'n':
         case 'N':
-            retVal = 50;
+            if(temp_room_ptr->north != NULL)
+                player->set_location(temp_room_ptr->north);
             break;
         case 's':
         case 'S':
-            retVal = 51;
+            if(temp_room_ptr->south != NULL)
+                player->set_location(temp_room_ptr->south);
             break;
         case 'e':
         case 'E':
-            retVal = 52;
+            if(temp_room_ptr->east != NULL)
+                player->set_location(temp_room_ptr->east);
             break;
         case 'w':
         case 'W':
-            retVal = 53;
+            if(temp_room_ptr->west != NULL)
+                player->set_location(temp_room_ptr->west);
+            break;
+        case 'm':
+        case 'M':
+            drawMap();
             break;
         default:
+            retValue = false;
             break;
     }
 
-    return retVal;
+    return retValue;
 }
 
 // This function sorts the coord list based on a custom compare function (specifically made for the coord struct).
