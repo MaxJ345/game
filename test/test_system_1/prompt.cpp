@@ -99,20 +99,50 @@ void prompt::drawMap()
 {
     for(int ixY = upperMost; ixY >= downMost; ixY--)
     {
-        for(int ixX = leftMost; ixX <= rightMost; ixX++)
+        for(int line = 1; line <= 5; line++)       // This loop is needed for printing multiple lines for each row on the map.
         {
-            coord temp_coord;
-            temp_coord.xcoord = ixX;
-            temp_coord.ycoord = ixY;
 
-            // Binary search will return true if a matching coord is in the list. This determines whether we draw the room or a blank space on the map.
-            if(binary_search(pCoordList->begin(), pCoordList->end(), temp_coord, compare_origin_top_left))
-                cout << "*";
-            else
-                cout << "-";
+            for(int ixX = leftMost; ixX <= rightMost; ixX++)
+            {
+                coord temp_coord;
+                temp_coord.xcoord = ixX;
+                temp_coord.ycoord = ixY;
+
+                // Binary search will return true if a matching coord is in the list. This determines whether we draw the room or a blank space on the map.
+                if(binary_search(pCoordList->begin(), pCoordList->end(), temp_coord, compare_origin_top_left))
+                    printRoom(line, temp_coord);
+                else
+                    printBlank();
+            }
+            cout << endl;
+
         }
-        cout << endl;
     }
+}
+
+// This function prints a simple outline of a room. It will also mark the room if it is the player's current location.
+void prompt::printRoom(int line, coord current_coord)
+{
+    if(line == 1 || line == 5)
+        cout << "`````";
+    else if(line == 2 || line == 4)
+    {
+        cout << "`   `";
+    }
+    else
+    {
+        coord player_coord = player->get_location()->position;
+        if(player_coord.xcoord == current_coord.xcoord && player_coord.ycoord == current_coord.ycoord)
+            cout << "` * `";
+        else
+            cout << "`   `";
+    }
+}
+
+// This function simply prints blanks for empty spaces.
+void prompt::printBlank()
+{
+    cout << "     ";
 }
 
 // This function needs to be used as a reference for comparison in the list::sort() and algorithm::binary_search() functions. This function is used to determine the "sorting" of the coord structure.

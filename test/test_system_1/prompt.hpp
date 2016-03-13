@@ -14,7 +14,10 @@ public:
 
     void sort_list();
     void find_extremes();
+
     void drawMap();
+    void printRoom(int, coord);
+    void printBlank();
 
     static bool compare_origin_top_left(const coord &, const coord &);
 
