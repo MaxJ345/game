@@ -14,7 +14,6 @@ int main(void)
     player->set_location(starting_room_ptr);
 
     prompt * interface = new prompt(player);
-
     interface->sort_list();
     interface->find_extremes();
     interface->drawMap();

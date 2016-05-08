@@ -153,3 +153,4 @@ bool prompt::compare_origin_top_left(const coord & lhs, const coord & rhs)
     else                                        // Else...
         return (lhs.ycoord > rhs.ycoord);       // Sort by ycoord (from up to down).
 }
+
