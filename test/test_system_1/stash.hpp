@@ -6,6 +6,8 @@
 #include "includes.hpp"
 #include "item.hpp"
 
+#define NUM_ITEMS 10
+
 class stash
 {
 public:
@@ -14,7 +16,7 @@ public:
     void get_items();
 
 private:
-    list <item> * pItemList;        // A list of items.
+    array <item *, NUM_ITEMS> * pItemList;        // A list of items.
     void process_item_info(string strLine, item * itemPtr);
 
 } ;

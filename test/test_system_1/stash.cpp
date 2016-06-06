@@ -4,7 +4,7 @@
 
 stash::stash()
 {
-    pItemList =  new list <item>;
+    pItemList =  new array <item *, NUM_ITEMS>;
 }
 
 // This function will build a list of items based on a list.
@@ -17,12 +17,17 @@ void stash::get_items()
 
     if(items_file.is_open())
     {
+        int ixItem = 0;
         getline(items_file, strBuffer);      // Skip first line.
-        while(getline(items_file, strBuffer))
+        while(getline(items_file, strBuffer) && ixItem < NUM_ITEMS)
         {
             item * temp_item_ptr = new item;
             process_item_info(strBuffer, temp_item_ptr);
-            pItemList->push_front(*temp_item_ptr);
+            (*pItemList)[ixItem] = temp_item_ptr;
+
+            //cout << (*pItemList)[ixItem]->get_itemName() << endl;         // for DEBUGGING
+
+            ixItem++;
         }
         items_file.close();
     }
