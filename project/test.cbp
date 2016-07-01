@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="character.cpp" />
+		<Unit filename="character.hpp" />
+		<Unit filename="includes.hpp" />
+		<Unit filename="item.cpp" />
+		<Unit filename="item.hpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="prompt.cpp" />
+		<Unit filename="prompt.hpp" />
+		<Unit filename="room.cpp" />
+		<Unit filename="room.hpp" />
+		<Unit filename="roomDelete.cpp" />
+		<Unit filename="roomDelete.hpp" />
+		<Unit filename="roomGen.cpp" />
+		<Unit filename="roomGen.hpp" />
+		<Unit filename="stash.cpp" />
+		<Unit filename="stash.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

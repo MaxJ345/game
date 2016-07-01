@@ -6,16 +6,15 @@ This project is an extension on the C++ text-based game that my group (Colin Rya
 ==FILES==
 Currently the directory contains the following files and folders:
 
-	--FILES--
-	roomGen.cpp - this file contains the function that procedurally/recursively generates a complex of interlinked rooms
-	roomDelete.cpp - this file recursively deletes a complex of interlinked rooms
-
 	--DIRECTORIES--
 	test - this directory contains test files for algorithms, etc.
 	original - this directory contains the files for the original game
+    project - contains the actual [CodeBlocks] project. This includes all source files and some files that are produced by [CodeBlocks].
 
 
 ==STATUS==
+
+06 Jun. 2016 - There's been plenty of progress over the past months. For a while I wasn't working on it, but I've picked it back up. Many of the current main systems/classes include: rooms (and room gen./del.; also includes a grid/map system), characters, prompt, items, stashes (collection/array of items).
 
 03 Feb. 2016 - A test of the system (as of now) has been created. It contains roomGen, roomDelete, golbally-declared variables, coordinates list, and the logic to prevent "overlapping" (take up the same coordinate position) rooms.
 
@@ -24,7 +23,6 @@ The roomGen and roomDelete functions are currently working! They need to be upda
 
 ==FUTURE==
 Now I will focus on revamping, and redesigning old code (from original game) and high-level design of the game.
-I hope to add a grid system and map system to complement roomGen.
 Make pointer variable to keep global access to probability function (as opposed to passing it a seed all the time).
 All of the game's code should take advantage of object-oriented design (classes, etc.).
 Revamp current code to make sure it has validation/error-checking wherever applicable.

@@ -37,7 +37,7 @@ test.add_item(new_item);
 item_test = test.get_item(3,true);
 cout << item_test->get_itemName() << endl;
 
-item_test = test.get_item(3,false);
+//item_test = test.get_item(3,false);     // should fail due to there being no item in this location
 cout << item_test->get_itemName() << endl;
 
 

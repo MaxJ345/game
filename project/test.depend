@@ -1,0 +1,165 @@
+# depslib dependency file v1.0
+1456535618 source:c:\users\max\desktop\test\main.cpp
+	"roomGen.hpp"
+	"roomDelete.hpp"
+	"character.hpp"
+	"prompt.hpp"
+	<algorithm>
+
+1455590815 source:c:\users\max\desktop\test\roomgen.cpp
+	"roomGen.hpp"
+
+1456016092 c:\users\max\desktop\test\roomgen.hpp
+	"room.hpp"
+
+1456016092 c:\users\max\desktop\test\roomdelete.hpp
+	"room.hpp"
+
+1454548745 source:c:\users\max\desktop\test\roomdelete.cpp
+	"roomDelete.hpp"
+
+1456016952 source:c:\users\max\desktop\test\character.cpp
+	"character.hpp"
+
+1456016092 c:\users\max\desktop\test\character.hpp
+	"room.hpp"
+
+1456365789 c:\users\max\desktop\test\room.hpp
+	"includes.hpp"
+
+1456365790 source:c:\users\max\desktop\test\room.cpp
+	"room.hpp"
+
+1456620681 source:c:\users\max\desktop\test\prompt.cpp
+	"prompt.hpp"
+
+1456620681 c:\users\max\desktop\test\prompt.hpp
+	"room.hpp"
+
+1456534936 c:\users\max\desktop\test\includes.hpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<list>
+	<algorithm>
+
+1456020552 source:e:\users\max\desktop\test\character.cpp
+	"character.hpp"
+
+1456019692 e:\users\max\desktop\test\character.hpp
+	"room.hpp"
+
+1456706681 e:\users\max\desktop\test\room.hpp
+	"includes.hpp"
+
+1465779000 e:\users\max\desktop\test\includes.hpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<list>
+	<algorithm>
+	<fstream>
+	<array>
+	<string>
+
+1466377814 source:e:\users\max\desktop\test\main.cpp
+	"roomGen.hpp"
+	"roomDelete.hpp"
+	"character.hpp"
+	"prompt.hpp"
+	"stash.hpp"
+
+1456019692 e:\users\max\desktop\test\roomgen.hpp
+	"room.hpp"
+
+1456019692 e:\users\max\desktop\test\roomdelete.hpp
+	"room.hpp"
+
+1462739015 e:\users\max\desktop\test\prompt.hpp
+	"character.hpp"
+
+1456369390 source:e:\users\max\desktop\test\room.cpp
+	"room.hpp"
+
+1456707110 source:e:\users\max\desktop\test\roomdelete.cpp
+	"roomDelete.hpp"
+
+1455594415 source:e:\users\max\desktop\test\roomgen.cpp
+	"roomGen.hpp"
+
+1462737373 source:e:\users\max\desktop\test\prompt.cpp
+	"prompt.hpp"
+
+1459046659 source:e:\users\max\desktop\test\item.cpp
+	"item.hpp"
+
+1459046717 e:\users\max\desktop\test\item.hpp
+	"includes.hpp"
+
+1466378092 source:e:\users\max\desktop\test\stash.cpp
+	"stash.hpp"
+
+1467074121 e:\users\max\desktop\test\stash.hpp
+	"includes.hpp"
+	"item.hpp"
+
+1456020552 source:e:\users\max\desktop\game\project\character.cpp
+	"character.hpp"
+
+1456019692 e:\users\max\desktop\game\project\character.hpp
+	"room.hpp"
+
+1456706681 e:\users\max\desktop\game\project\room.hpp
+	"includes.hpp"
+
+1465779000 e:\users\max\desktop\game\project\includes.hpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<list>
+	<algorithm>
+	<fstream>
+	<array>
+	<string>
+
+1459046659 source:e:\users\max\desktop\game\project\item.cpp
+	"item.hpp"
+
+1459046717 e:\users\max\desktop\game\project\item.hpp
+	"includes.hpp"
+
+1467074320 source:e:\users\max\desktop\game\project\main.cpp
+	"roomGen.hpp"
+	"roomDelete.hpp"
+	"character.hpp"
+	"prompt.hpp"
+	"stash.hpp"
+
+1456019692 e:\users\max\desktop\game\project\roomgen.hpp
+	"room.hpp"
+
+1456019692 e:\users\max\desktop\game\project\roomdelete.hpp
+	"room.hpp"
+
+1462739015 e:\users\max\desktop\game\project\prompt.hpp
+	"character.hpp"
+
+1467074121 e:\users\max\desktop\game\project\stash.hpp
+	"includes.hpp"
+	"item.hpp"
+
+1462737373 source:e:\users\max\desktop\game\project\prompt.cpp
+	"prompt.hpp"
+
+1456369390 source:e:\users\max\desktop\game\project\room.cpp
+	"room.hpp"
+
+1456707110 source:e:\users\max\desktop\game\project\roomdelete.cpp
+	"roomDelete.hpp"
+
+1455594415 source:e:\users\max\desktop\game\project\roomgen.cpp
+	"roomGen.hpp"
+
+1466378092 source:e:\users\max\desktop\game\project\stash.cpp
+	"stash.hpp"
+

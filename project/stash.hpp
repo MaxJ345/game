@@ -20,7 +20,7 @@ public:
     bool add_item(item * newItem);
     //drop item function
     //swap item function (returns item, takes in item and index)
-    
+
     // NOTE: Make a global list of all items (off the prompt class maybe?). Get rid of the get_item_list() method above and use it instead to populate the global list of items. Then use the global list to fill stashes (backpack, rooms, etc.).
 
 private:
